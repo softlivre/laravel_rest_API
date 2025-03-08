@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +20,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/', function () {
-    return response()->json(['message' => 'Welcome, but try using an API client instead...'], 200);
-});
-
-Route::get('/doc', function () {
-    return response()->json(['message' => 'this is the doc!'], 200);
-});
-
 Route::get('/test', [UserController::class, 'test']);
+
+Route::get('buildings/{buildingId}/tasks', [TaskController::class, 'index']);
+
+Route::fallback(function () {
+    return response()->json(['message' => 'This route does not exist. Check documentation at http://localhost:85/docs?api-docs.json '], 404);
+});

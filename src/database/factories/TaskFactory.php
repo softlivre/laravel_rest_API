@@ -17,8 +17,8 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'title'       => fake()->sentence(),
-            'description' => 'The task to be performed is ' . fake()->paragraph(),
+            'title'       => 'The task title is ' . fake()->sentence(),
+            'description' => 'The task description is ' . fake()->paragraph(),
             'status'      => fake()->randomElement(['Open', 'In Progress', 'Completed', 'Rejected']),
             'building_id' => Building::inRandomOrder()->first()->id,
             'created_by'  => User::inRandomOrder()->first()->id,
