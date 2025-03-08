@@ -9,7 +9,11 @@
 | Using Laravel 10 by Henrique Soares Barbosa |
 
 </pre>
-[![Contributors][contributors-shield]][contributors-url]
+[![Build status](badge)](link)
+[![Code coverage](badge)](link)
+[![Code quality](badge)](link)
+[![Code style](badge)](link)
+[![License](badge)](link)
 
 # laravel_rest_API
 A REST API built with Laravel as an assessment project for company 'P'.
