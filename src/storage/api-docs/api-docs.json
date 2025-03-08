@@ -5,6 +5,41 @@
         "version": "0.1"
     },
     "paths": {
+        "/api/buildings/{buildingId}/tasks": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "List tasks for a building",
+                "description": "Returns a list of tasks for a specified building along with their comments. If the building does not exist, returns a 404 response with an error message.",
+                "operationId": "e890b29b6a1176ee18be223b6f30ffa0",
+                "parameters": [
+                    {
+                        "name": "buildingId",
+                        "in": "path",
+                        "description": "The ID of the building",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tasks retrieved successfully",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Building not found",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
         "/api/test": {
             "get": {
                 "tags": [
@@ -45,6 +80,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Tasks",
+            "description": "Tasks"
+        },
         {
             "name": "Test",
             "description": "Test"

@@ -19,7 +19,7 @@ class CommentFactory extends Factory
         return [
             'task_id' => Task::inRandomOrder()->first()->id,
             'user_id' => User::inRandomOrder()->first()->id,
-            'comment' => 'Comment ' . fake()->paragraph(),
+            'comment' => 'Comment: The current progress is ' . fake()->paragraph(),
         ];
     }
 }
