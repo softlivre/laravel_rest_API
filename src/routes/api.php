@@ -24,6 +24,8 @@ Route::get('/test', [UserController::class, 'test']);
 
 Route::get('buildings/{buildingId}/tasks', [TaskController::class, 'index']);
 
+Route::post('/tasks', [TaskController::class, 'store']);
+
 Route::fallback(function () {
     return response()->json(['message' => 'This route does not exist. Check documentation at http://localhost:85/docs?api-docs.json '], 404);
 });
