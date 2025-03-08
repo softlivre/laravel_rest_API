@@ -7,10 +7,35 @@ A REST API built with Laravel as an assessment project for company 'P'.
 
 ## Steps
 1. Clone the repository
-2. Run the following command in the root directory of the project. This will build all necessary containers and start the services.
+
+```bash
+git clone https://github.com/softlivre/laravel_rest_API.git .
+```
+
+2. set your credentials, copy .env.example to .env
+
+```bash
+# in the root directory
+cp .env.example .env
+
+# in the src directory
+cd src
+cp .env.example .env
+```
+
+3. Run the following command in the root directory of the project. This will build all necessary containers and start the services.
 
 ```bash
 docker-compose up -d --build
+```
+
+4. Now enter the app container and run the following commands to create the application.
+
+```bash
+docker compose exec app bash
+composer install --prefer-dist --optimize-autoloader
+php artisan key:generate 
+php artisan migrate
 ```
 
 ## Access to the app
