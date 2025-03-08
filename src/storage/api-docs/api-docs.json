@@ -12,7 +12,7 @@
                 ],
                 "summary": "List tasks for a building",
                 "description": "Returns a list of tasks for a specified building along with their comments. If the building does not exist, returns a 404 response with an error message.",
-                "operationId": "e890b29b6a1176ee18be223b6f30ffa0",
+                "operationId": "5714a88e147a7be422b5926a1e849706",
                 "parameters": [
                     {
                         "name": "buildingId",
@@ -36,6 +36,59 @@
                         "content": {
                             "application/json": {}
                         }
+                    }
+                }
+            }
+        },
+        "/api/tasks": {
+            "post": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Create a new task",
+                "description": "Creates a new task for a building. The task is created with a default status of 'Open'.",
+                "operationId": "f803ebdb2300acdb7e93bbe8d0b9a2e8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "building_id"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Fix Leak in Apartment 5B"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Water leak detected in the bathroom."
+                                    },
+                                    "building_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "assigned_to": {
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Task created successfully",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error"
                     }
                 }
             }
