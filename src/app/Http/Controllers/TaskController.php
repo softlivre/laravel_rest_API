@@ -143,7 +143,7 @@ class TaskController extends Controller
      *          name="description",
      *          in="query",
      *          description="Description of the task",
-     *          required=false,
+     *          required=true,
      *          @OA\Schema(
      *              type="string",
      *              example="Water leak detected in the bathroom."
@@ -163,7 +163,7 @@ class TaskController extends Controller
      *          name="assigned_to",
      *          in="query",
      *          description="ID of the user assigned to the task",
-     *          required=false,
+     *          required=true,
      *          @OA\Schema(
      *              type="integer",
      *              example=2

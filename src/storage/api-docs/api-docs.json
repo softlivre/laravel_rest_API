@@ -131,7 +131,7 @@
                         "name": "description",
                         "in": "query",
                         "description": "Description of the task",
-                        "required": false,
+                        "required": true,
                         "schema": {
                             "type": "string",
                             "example": "Water leak detected in the bathroom."
@@ -151,7 +151,7 @@
                         "name": "assigned_to",
                         "in": "query",
                         "description": "ID of the user assigned to the task",
-                        "required": false,
+                        "required": true,
                         "schema": {
                             "type": "integer",
                             "example": 2

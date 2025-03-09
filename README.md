@@ -116,6 +116,14 @@ php artisan test
 ```
 ![Unit tests](misc/unitTests.png)
 
+## API Documentation
+
+This project uses Swagger/OpenAPI to provide comprehensive, self-updating API documentation. All routes are documented and tested using annotations embedded directly in the code. This approach not only ensures that the documentation remains in sync with the implementation, but also allows developers to easily understand the API structure and behavior.
+
+The Swagger UI is available with the application, enabling users to interact with and test API endpoints in real time. You can apply filters, execute test requests, and view detailed information about each endpoint—including request parameters, response schemas, and error messages—directly from the Swagger interface.
+
+![Swagger](misc/swagger.png)
+
 ## Final Considerations
 
 This project is built for assessment purposes and demonstrates a basic REST API architecture using Laravel 10. In a production environment, it is crucial to secure sensitive files such as `.env`, `.sql`, and `.log` by ensuring that your web server (e.g., Nginx or Apache) is configured to restrict access to these files. Additionally, while this demonstration does not implement any authentication mechanism, a real-world application must enforce robust authentication and authorization policies, as well as implement safety mechanisms to analyze data usage and prevent abuse.
