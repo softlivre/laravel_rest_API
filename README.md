@@ -69,7 +69,9 @@ docker-compose up -d --build
 - Enter the app container and execute the following commands:
 
 ```bash
-docker compose exec app bash   # Enter the app container  
+# Enter the app container  
+docker compose exec app bash
+
 composer install --prefer-dist --optimize-autoloader  
 php artisan key:generate  
 php artisan migrate:fresh --seed
