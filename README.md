@@ -9,77 +9,98 @@
 | Using Laravel 10 by Henrique Soares Barbosa |
 </pre>
 
-# laravel_rest_API
+# Laravel REST API
+
 A REST API built with Laravel 10 as an assessment project.
 
-# Deployment instructions
-## Requirements
-- Docker
+## Table of Contents
 
-## Steps
-1. Clone the repository
+- [Overview](#overview)
+- [Deployment Instructions](#deployment-instructions)
+  - [Requirements](#requirements)
+  - [Setup Steps](#setup-steps)
+- [Accessing the Application](#accessing-the-application)
+- [Optional Configurations](#optional-configurations)
+- [Entity Relationship Diagram (ERD)](#entity-relationship-diagram-erd)
+
+## Overview
+
+This project is a REST API built using Laravel 10. The application is fully containerized using Docker and Docker Compose, ensuring all dependencies are bundled together for a smooth deployment experience.
+
+## Deployment Instructions
+
+### Requirements
+
+- Docker and Docker Compose: These are the only requirements as all services are containerized.
+
+### Setup Steps
+
+1. Clone the Repository:
 
 ```bash
 git clone https://github.com/softlivre/laravel_rest_API.git
 ```
 
-2. In the project root: set your credentials, copy .env.example to .env
+2. Configure Environment Variables:
+
+   - In the project root, copy .env.example to .env:
 
 ```bash
-# in the root directory
+cp .env.example .env
+```
+   - In the src directory, also copy .env.example to .env:
+
+```bash
+cd src  
 cp .env.example .env
 ```
 
-3. IMPORTANT! - Also set the following by copying the .env.example file in the src directory to .env
+3. Build and Start the Containers:
 
-```bash
-# in the src directory
-cd src
-cp .env.example .env
-```
-
-4. Run the following command in the root directory of the project. This will build all necessary containers and start the services.
+   Run the following command in the root directory to build all necessary containers and start the services:
 
 ```bash
 docker-compose up -d --build
 ```
 
-4. Now enter the app container and run the following commands to create the application.
+4. Set Up the Application:
+
+   Enter the app container and execute the following commands:
 
 ```bash
-docker compose exec app bash # enter the app container
-composer install --prefer-dist --optimize-autoloader
-php artisan key:generate 
+docker compose exec app bash   # Enter the app container  
+composer install --prefer-dist --optimize-autoloader  
+php artisan key:generate  
 php artisan migrate:fresh --seed
 ```
 
-## Access to the app
-APP (API)
-- http://localhost:85
+## Accessing the Application
 
-ADMINER
-- http://localhost:8080
+- API: http://localhost:85
+- Adminer: http://localhost:8080
+- pgAdmin: http://localhost:5050
 
-PGADMIN
-- http://localhost:5050
+## Optional Configurations
 
+### Configuring pgAdmin
 
+To configure pgAdmin, add a new server with the following credentials:
 
-### Optional configurations
+- Host: PostgreSQL container IP  
+  (You can find it using: docker inspect henriquebarbosa-db | grep IPAddress)
+- Port: 5432
+- Username: pguser
+- Password: pgpass
 
-- To configure pgAdmin, you need to add a new server with the following credentials:
-  - Host: postgresql's container IP **(docker inspect henriquebarbosa-db | grep IPAddress)**
-  - Port: 5432
-  - Username: pguser
-  - Password: pgpass
+You may use the same obtained IP if you prefer using Adminer instead of pgAdmin.
 
-  You may use the same obtained IP if you prefer Adminer instead of pgAdmin.
+## Entity Relationship Diagram (ERD)
 
-### ERD
-- This is the Entity Relationship Diagram for the database schema.
+Below is the Entity Relationship Diagram for the database schema:
 
 ![ERD Diagram](misc/ERD_v01.png)
 
+(Generated using Mermaid Live: https://mermaid.live)
 ## draft area @TODO xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 composer create-project "laravel/laravel:^10.0" .
