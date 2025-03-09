@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -25,6 +26,8 @@ Route::get('/test', [UserController::class, 'test']);
 Route::get('buildings/{buildingId}/tasks', [TaskController::class, 'index']);
 
 Route::post('/tasks', [TaskController::class, 'store']);
+
+Route::post('/comments', [CommentController::class, 'store']);
 
 Route::fallback(function () {
     return response()->json(['message' => 'This route does not exist. Check documentation at http://localhost:85/docs?api-docs.json '], 404);

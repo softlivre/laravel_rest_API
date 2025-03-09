@@ -5,6 +5,56 @@
         "version": "0.1"
     },
     "paths": {
+        "/api/comments": {
+            "post": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Create a new comment for a task",
+                "description": "Creates a new comment for a specified task. The endpoint requires task_id, user_id, and comment text.",
+                "operationId": "300619a0a4003920aafe960e45688102",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "task_id",
+                                    "user_id",
+                                    "comment"
+                                ],
+                                "properties": {
+                                    "task_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "comment": {
+                                        "type": "string",
+                                        "example": "This is a sample comment."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Comment created successfully",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
         "/api/buildings/{buildingId}/tasks": {
             "get": {
                 "tags": [
@@ -133,6 +183,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Comments",
+            "description": "Comments"
+        },
         {
             "name": "Tasks",
             "description": "Tasks"
