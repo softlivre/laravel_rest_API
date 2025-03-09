@@ -61,7 +61,7 @@
                     "Tasks"
                 ],
                 "summary": "List tasks for a building",
-                "description": "Returns a list of tasks for a specified building along with their comments. If the building does not exist, returns a 404 response with an error message.",
+                "description": "Returns a list of tasks for a specified building along with their comments. Optional filters for assigned user and task status are supported. If the building does not exist, returns a 404 response with an error message.",
                 "operationId": "5714a88e147a7be422b5926a1e849706",
                 "parameters": [
                     {
@@ -71,6 +71,24 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "assigned_to",
+                        "in": "query",
+                        "description": "Optional filter: the user ID the task is assigned to",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Optional filter: the status of the task (e.g., Open, In Progress, Completed, Rejected)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],

@@ -25,7 +25,7 @@ class TaskController extends Controller
      *  @OA\GET(
      *      path="/api/buildings/{buildingId}/tasks",
      *      summary="List tasks for a building",
-     *      description="Returns a list of tasks for a specified building along with their comments. If the building does not exist, returns a 404 response with an error message.",
+     *      description="Returns a list of tasks for a specified building along with their comments. Optional filters for assigned user and task status are supported. If the building does not exist, returns a 404 response with an error message.",
      *      tags={"Tasks"},
      *      @OA\Parameter(
      *          name="buildingId",
@@ -34,6 +34,24 @@ class TaskController extends Controller
      *          required=true,
      *          @OA\Schema(
      *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="assigned_to",
+     *          in="query",
+     *          description="Optional filter: the user ID the task is assigned to",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="status",
+     *          in="query",
+     *          description="Optional filter: the status of the task (e.g., Open, In Progress, Completed, Rejected)",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="string"
      *          )
      *      ),
      *      @OA\Response(
