@@ -1,9 +1,8 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\TaskController;
-use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +22,5 @@ Route::post('/tasks', [TaskController::class, 'store']);
 
 Route::post('/comments', [CommentController::class, 'store']);
 
-Route::fallback(function () {
-    return response()->json(['message' => 'This route does not exist. Check documentation at http://localhost:85/docs?api-docs.json '], 404);
-});
+// Fallback route to avoid 404 errors or non JSON response
+Route::fallback(FallbackController::class);
