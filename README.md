@@ -57,7 +57,7 @@ cp .env.example .env
 
 3. Build and Start the Containers:
 
-   Run the following command in the root directory to build all necessary containers and start the services:
+- Run the following command in the root directory to build all necessary containers and start the services:
 
 ```bash
 docker-compose up -d --build
@@ -66,7 +66,7 @@ docker-compose up -d --build
 
 4. Set Up the Application:
 
-   Enter the app container and execute the following commands:
+- Enter the app container and execute the following commands:
 
 ```bash
 docker compose exec app bash   # Enter the app container  
@@ -80,6 +80,8 @@ php artisan migrate:fresh --seed
 - API: http://localhost:85
 - Adminer: http://localhost:8080
 - pgAdmin: http://localhost:5050
+
+**I have used port 85 for the API** to avoid conflicts with other services running on the default port 80.
 
 ## Optional Configurations
 
