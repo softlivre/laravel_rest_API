@@ -106,6 +106,17 @@ Below is the Entity Relationship Diagram for the database schema:
 ![ERD Diagram](misc/ERD_v01.png)
 
 (Generated using Mermaid Live: https://mermaid.live)
+
+## Unit and Feature Tests
+
+Code has been covered and tested with PHPUnit. To run the tests, enter the app container and execute the following command:
+
+```bash
+php artisan test
+```
+![Unit tests](misc/unitTests.png)
+
+
 ## draft area @TODO xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 composer create-project "laravel/laravel:^10.0" .
