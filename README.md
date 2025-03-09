@@ -46,7 +46,7 @@ docker-compose up -d --build
 docker compose exec app bash
 composer install --prefer-dist --optimize-autoloader
 php artisan key:generate 
-php artisan migrate
+php artisan migrate # or if needed: php artisan migrate:fresh --seed
 ```
 
 ## Access to the app

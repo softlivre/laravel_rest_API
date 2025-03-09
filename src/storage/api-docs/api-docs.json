@@ -11,37 +11,37 @@
                     "Comments"
                 ],
                 "summary": "Create a new comment for a task",
-                "description": "Creates a new comment for a specified task. The endpoint requires task_id, user_id, and comment text.",
+                "description": "Creates a new comment for a specified task. The endpoint requires task_id, user_id, and comment text as query parameters.",
                 "operationId": "300619a0a4003920aafe960e45688102",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "task_id",
-                                    "user_id",
-                                    "comment"
-                                ],
-                                "properties": {
-                                    "task_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    },
-                                    "user_id": {
-                                        "type": "integer",
-                                        "example": 2
-                                    },
-                                    "comment": {
-                                        "type": "string",
-                                        "example": "This is a sample comment."
-                                    }
-                                },
-                                "type": "object"
-                            }
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "query",
+                        "description": "The ID of the task",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "The ID of the user creating the comment",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "comment",
+                        "in": "query",
+                        "description": "The comment text",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
                         }
                     }
-                },
+                ],
                 "responses": {
                     "201": {
                         "description": "Comment created successfully",
@@ -98,38 +98,48 @@
                 "summary": "Create a new task",
                 "description": "Creates a new task for a building. The task is created with a default status of 'Open'.",
                 "operationId": "f803ebdb2300acdb7e93bbe8d0b9a2e8",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "title",
-                                    "building_id"
-                                ],
-                                "properties": {
-                                    "title": {
-                                        "type": "string",
-                                        "example": "Fix Leak in Apartment 5B"
-                                    },
-                                    "description": {
-                                        "type": "string",
-                                        "example": "Water leak detected in the bathroom."
-                                    },
-                                    "building_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    },
-                                    "assigned_to": {
-                                        "type": "integer",
-                                        "example": 2
-                                    }
-                                },
-                                "type": "object"
-                            }
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Title of the task",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Fix Leak in Apartment 5B"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Description of the task",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Water leak detected in the bathroom."
+                        }
+                    },
+                    {
+                        "name": "building_id",
+                        "in": "query",
+                        "description": "ID of the building",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "assigned_to",
+                        "in": "query",
+                        "description": "ID of the user assigned to the task",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2
                         }
                     }
-                },
+                ],
                 "responses": {
                     "201": {
                         "description": "Task created successfully",
@@ -139,44 +149,6 @@
                     },
                     "422": {
                         "description": "Validation Error"
-                    }
-                }
-            }
-        },
-        "/api/test": {
-            "get": {
-                "tags": [
-                    "Test"
-                ],
-                "summary": "Get all users",
-                "description": "Get all users",
-                "operationId": "56ac917940356d77a1907b5264ce218e",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "in": "query",
-                        "description": "name",
-                        "required": false
-                    },
-                    {
-                        "name": "email",
-                        "in": "query",
-                        "description": "email",
-                        "required": false
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "description": "Page Number",
-                        "required": false
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {}
-                        }
                     }
                 }
             }
@@ -190,10 +162,6 @@
         {
             "name": "Tasks",
             "description": "Tasks"
-        },
-        {
-            "name": "Test",
-            "description": "Test"
         }
     ]
 }

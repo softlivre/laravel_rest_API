@@ -22,7 +22,7 @@ class TaskFactory extends Factory
             'status'      => fake()->randomElement(['Open', 'In Progress', 'Completed', 'Rejected']),
             'building_id' => Building::inRandomOrder()->first()->id,
             'created_by'  => User::inRandomOrder()->first()->id,
-            'assigned_to' => fake()->boolean(70) ? User::inRandomOrder()->first()->id : null,
+            'assigned_to' => User::inRandomOrder()->first()->id,
         ];
     }
 }
