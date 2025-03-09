@@ -43,12 +43,12 @@ git clone https://github.com/softlivre/laravel_rest_API.git
 
 2. Configure Environment Variables:
 
-   - In the project root, copy .env.example to .env:
+- In the project root, copy .env.example to .env:
 
 ```bash
 cp .env.example .env
 ```
-   - In the src directory, also copy .env.example to .env:
+- In the src directory, also copy .env.example to .env: (!IMPORTANT!)
 
 ```bash
 cd src  
@@ -62,6 +62,7 @@ cp .env.example .env
 ```bash
 docker-compose up -d --build
 ```
+!IMPORTANT! only run "docker-compose up -d --build" after you have set the two .env files. Failure to do so will result in an error as we need the database name to match the one in the .env file.
 
 4. Set Up the Application:
 
@@ -82,7 +83,7 @@ php artisan migrate:fresh --seed
 
 ## Optional Configurations
 
-### Configuring pgAdmin
+### Configuring pgAdmin and Adminer
 
 To configure pgAdmin, add a new server with the following credentials:
 
