@@ -13,7 +13,7 @@ class Building extends Model
     protected $guarded = [];
 
     // One building has many tasks
-    public function tasks()
+    public function tasks(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Task::class);
     }

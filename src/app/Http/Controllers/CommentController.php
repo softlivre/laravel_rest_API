@@ -53,7 +53,7 @@ class CommentController extends Controller
      *      )
      *  )
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $validator = \Illuminate\Support\Facades\Validator::make($request->all(), $this->rulesForStoreComment());
 
