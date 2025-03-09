@@ -48,16 +48,26 @@ class TaskController extends Controller
      */
     public function index($buildingId)
     {
-        // Manually fetch the building by its id
-        $building = Building::find($buildingId);
+        // Validate that buildingId is an integer and exists in the buildings table
+        $validator = \Illuminate\Support\Facades\Validator::make(
+            ['buildingId' => $buildingId],
+            [
+                'buildingId' => 'required|integer|exists:buildings,id',
+            ]
+        );
 
-        if (!$building) {
+        if ($validator->fails()) {
             return response()->json([
-                'message' => 'Building not found'
-            ], 404);
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors'  => $validator->errors()
+            ], 422);
         }
 
-        // Eager load tasks with their comments
+        // Fetch the building from the database
+        $building = Building::find((int) $buildingId);
+
+        // Load tasks with their comments
         $tasks = $building->tasks()->with('comments')->get();
 
         return response()->json([
@@ -71,14 +81,44 @@ class TaskController extends Controller
      *      summary="Create a new task",
      *      description="Creates a new task for a building. The task is created with a default status of 'Open'.",
      *      tags={"Tasks"},
-     *      @OA\RequestBody(
+     *      @OA\Parameter(
+     *          name="title",
+     *          in="query",
+     *          description="Title of the task",
      *          required=true,
-     *          @OA\JsonContent(
-     *              required={"title", "building_id"},
-     *              @OA\Property(property="title", type="string", example="Fix Leak in Apartment 5B"),
-     *              @OA\Property(property="description", type="string", example="Water leak detected in the bathroom."),
-     *              @OA\Property(property="building_id", type="integer", example=1),
-     *              @OA\Property(property="assigned_to", type="integer", example=2)
+     *          @OA\Schema(
+     *              type="string",
+     *              example="Fix Leak in Apartment 5B"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="description",
+     *          in="query",
+     *          description="Description of the task",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="string",
+     *              example="Water leak detected in the bathroom."
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="building_id",
+     *          in="query",
+     *          description="ID of the building",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *              example=1
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="assigned_to",
+     *          in="query",
+     *          description="ID of the user assigned to the task",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="integer",
+     *              example=2
      *          )
      *      ),
      *      @OA\Response(
@@ -96,13 +136,24 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the incoming data
-        $validatedData = $request->validate([
+        $rules = [
             'title'       => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'building_id' => 'required|exists:buildings,id',
-            'assigned_to' => 'nullable|exists:users,id',
-        ]);
+            'description' => 'required|string',
+            'building_id' => 'required|integer|exists:buildings,id',
+            'assigned_to' => 'nullable|integer|exists:users,id',
+        ];
+
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors'  => $validator->errors()
+            ], 422);
+        }
+
+        $validatedData = $validator->validated();
 
         // Set created_by from the authenticated user, or fallback if not using auth
         $validatedData['created_by'] = auth()->id() ?? $request->input('created_by', 1);
