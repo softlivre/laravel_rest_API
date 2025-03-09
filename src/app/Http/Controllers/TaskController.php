@@ -136,14 +136,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'title'       => 'required|string|max:255',
-            'description' => 'required|string',
-            'building_id' => 'required|integer|exists:buildings,id',
-            'assigned_to' => 'nullable|integer|exists:users,id',
-        ];
-
-        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), $this->rulesForStoreTask());
 
         if ($validator->fails()) {
             return response()->json([
@@ -165,5 +158,15 @@ class TaskController extends Controller
         $task = Task::create($validatedData);
 
         return response()->json(['data' => $task], 201);
+    }
+
+    public function rulesForStoreTask(): array
+    {
+        return [
+            'title'       => 'required|string|max:255',
+            'description' => 'required|string',
+            'building_id' => 'required|integer|exists:buildings,id',
+            'assigned_to' => 'nullable|integer|exists:users,id',
+        ];
     }
 }

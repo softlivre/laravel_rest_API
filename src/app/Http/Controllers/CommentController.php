@@ -55,13 +55,7 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'task_id' => 'required|integer|exists:tasks,id',
-            'user_id' => 'required|integer|exists:users,id',
-            'comment' => 'required|string',
-        ];
-
-        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), $this->rulesForStoreComment());
 
         if ($validator->fails()) {
             return response()->json([
@@ -77,5 +71,14 @@ class CommentController extends Controller
         $comment = Comment::create($validatedData);
 
         return response()->json(['data' => $comment], 201);
+    }
+
+    public function rulesForStoreComment(): array
+    {
+        return [
+            'task_id' => 'required|integer|exists:tasks,id',
+            'user_id' => 'required|integer|exists:users,id',
+            'comment' => 'required|string',
+        ];
     }
 }
