@@ -8,6 +8,18 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
     /**
+     * Create a new comment.
+     *
+     * This method validates the incoming request using rules defined in rulesForStoreComment().
+     * If validation is successful, it creates a new comment record using the validated data.
+     * On success, it returns a JSON response containing the created comment with a 201 status code;
+     * otherwise, it returns a JSON response with validation error messages and a 422 status code.
+     *
+     * @param \Illuminate\Http\Request $request The HTTP request instance containing comment data.
+     * @return \Illuminate\Http\JsonResponse JSON response with the created comment data or validation errors.
+     * 
+     * 
+     * 
      *  @OA\POST(
      *      path="/api/comments",
      *      summary="Create a new comment for a task",

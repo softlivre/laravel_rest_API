@@ -9,13 +9,19 @@ use Illuminate\Http\Request;
 class TaskController extends Controller
 {
     /**
-     * List tasks for a specific building along with their comments.
+     * Retrieve a list of tasks for a given building, with optional filtering.
      *
-     * @param  \App\Models\Building  $building
-     * @return \Illuminate\Http\JsonResponse
-     */
-
-    /**
+     * This method validates that the provided building ID is valid and exists,
+     * fetches the building, and then returns its tasks along with any associated
+     * comments. Optional query parameters allow filtering tasks by the user the task
+     * is assigned to (`assigned_to`) and the task status (`status`).
+     *
+     * @param  \Illuminate\Http\Request  $request  The incoming HTTP request instance.
+     * @param  int                                 $buildingId The ID of the building.
+     * @return \Illuminate\Http\JsonResponse       JSON response containing the tasks or error details if validation fails.
+     * 
+     *
+     * 
      *  @OA\GET(
      *      path="/api/buildings/{buildingId}/tasks",
      *      summary="List tasks for a building",
@@ -46,7 +52,7 @@ class TaskController extends Controller
      *      )
      *  )
      */
-    public function index($buildingId)
+    public function index(Request $request, $buildingId): \Illuminate\Http\JsonResponse
     {
         // Validate that buildingId is an integer and exists in the buildings table
         $validator = \Illuminate\Support\Facades\Validator::make(
@@ -67,8 +73,20 @@ class TaskController extends Controller
         // Fetch the building from the database
         $building = Building::find((int) $buildingId);
 
-        // Load tasks with their comments
-        $tasks = $building->tasks()->with('comments')->get();
+        // Start building the query for tasks with their comments
+        $query = $building->tasks()->with('comments');
+
+        // Optional filter for assigned_to
+        if ($request->has('assigned_to')) {
+            $query->where('assigned_to', $request->query('assigned_to'));
+        }
+
+        // Optional filter for status (e.g., Open, In Progress, Completed, Rejected)
+        if ($request->has('status')) {
+            $query->where('status', $request->query('status'));
+        }
+
+        $tasks = $query->get();
 
         return response()->json([
             'data' => $tasks,
@@ -76,6 +94,18 @@ class TaskController extends Controller
     }
 
     /**
+     * Create a new task.
+     *
+     * This method validates the incoming request using rules defined in rulesForStoreTask().
+     * If validation passes, it sets the 'created_by' field to the authenticated user's ID (or a fallback value),
+     * defaults the task status to "Open", and creates a new task record.
+     * On success, it returns a JSON response with the created task data; otherwise, it returns validation errors.
+     *
+     * @param \Illuminate\Http\Request $request     The HTTP request instance containing task details.
+     * @return \Illuminate\Http\JsonResponse        JSON response with task data on success or error messages on failure.
+     * 
+     * 
+     * 
      *  @OA\POST(
      *      path="/api/tasks",
      *      summary="Create a new task",
