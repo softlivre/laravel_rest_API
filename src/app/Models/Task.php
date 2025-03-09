@@ -21,7 +21,7 @@ class Task extends Model
     ];
 
     // One task has many comments
-    public function comments()
+    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Comment::class);
     }
