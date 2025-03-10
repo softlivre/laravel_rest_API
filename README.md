@@ -13,6 +13,8 @@
 
 A REST API built with Laravel 10 as an assessment project.
 
+Click the image below to **watch the demo video:**
+
 [![Watch the demo video](/misc/video_preview.png)](https://softlivre.com.br/henrique_apidemo.mp4)
 
 ## Table of Contents
