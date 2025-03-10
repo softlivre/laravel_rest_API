@@ -80,6 +80,7 @@ php artisan migrate:fresh --seed
 ## Accessing the Application
 
 - API: http://localhost:85
+- Swagger: http://localhost:85/api/documentation
 - Adminer: http://localhost:8080
 - pgAdmin: http://localhost:5050
 
